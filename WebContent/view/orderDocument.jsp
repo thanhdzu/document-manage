@@ -80,11 +80,11 @@
                         
                     </div>
                     <!-- /.col-lg-12 -->
-                    <form class="form-group" action="orderDocument" method="post" >
+                    <form class="form-group" action="orderDocument" >
                     <table class="table table-striped table-bordered table-hover" id="usertable">
                         <thead>
                             <tr align="center">
-                                <th>Mượn</th>
+                                
                                 <th>Tên Tài Liệu</th>
                                 <th>Lĩnh vực</th>
                                 <th>Giáo viên HD</th>
@@ -92,7 +92,7 @@
                                 <th>Sinh Viên</th>
                                 <th>Cơ quan TT</th>
                                 <th>Lớp</th>
-                                <th>Trạng thái</th>
+                              
                                 
                             </tr>
                         </thead>
@@ -102,7 +102,7 @@
         						
     						
                         	<tr class="odd gradeX" align="center">
-                        		<td><input type="checkbox" value="${doc.id_document}" ${doc.status==2?'disabled' : '' } name="ckOrder"></td>
+                        		
                               	
                                 <td>${doc.document_name}</td>
                                 <td>
@@ -153,21 +153,18 @@
   									</c:if>
 									</c:forEach>
                               	</td>
-                                <td>
-                                	<c:if test="${doc.status == 1}">
-                                		<p>Đang có</p>
-                                	</c:if>
-                                	<c:if test="${doc.status == 2}">
-                                		<p>Đã được mượn</p>
-                                	</c:if>
-                                </td>
+                             
                             
                             </tr>
                             </c:if>
                         	</c:forEach>
                         </tbody>
                     </table>
-                    <div class="form=group" align="center">  <button type="submit" class="btn btn-default">Mượn</button></div>
+                    <label>Chọn thời gian nhận</label>
+                    <input type="text" id="datepick" name="dtp" required="required">
+                    <div class="form=group" align="center">  <button type="submit" class="btn btn-default">Xác nhận</button>
+                    										
+                    </div>
                    
                     </form>
                 </div>
@@ -196,9 +193,21 @@
         <script src="${pageContext.request.contextPath}/datatable/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/datatable/dataTables.jqueryui.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
- 
-
+ 	
+ 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/datetimepicker/jquery.datetimepicker.css"/ >
+	<script src="${pageContext.request.contextPath}/datetimepicker/jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+ 	
+	<script type="text/javascript">
+	  $(document).ready(function () {
+		  jQuery('#datepick').datetimepicker({
+			  startDate:'+1971/05/01',//or 1986/12/08
+			  lang:'vie'
+			});
+      });
+	</script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <!--  
     <script type="text/javascript">
             $(document).ready(function () {
                 $('#usertable').dataTable({
@@ -223,7 +232,7 @@
                 });
             });
         </script>
-
+	-->
 </body>
 
 </html>

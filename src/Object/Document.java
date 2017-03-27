@@ -127,7 +127,7 @@ public class Document {
 	{
 		
 		ConnectDB con = new ConnectDB();
-		String query="insert into documents(document_name,idcate,id_teacher,point,student,id_business,id_class,status) values(?,?,?,?,?,?,?,?)";
+		String query="insert into documents(document_name,idcate,id_teacher,point,student,id_business,id_class,status) values(N?,?,?,?,N?,?,?,?)";
 	
 		PreparedStatement ps=con.openConnect().prepareStatement(query);  // generates sql query
 		//ps.setInt(1, doc.getId_document());
@@ -200,7 +200,38 @@ public class Document {
 		 
 	}
 	
-
+	public static ArrayList<Document> getOrderDocument(String[] arr) throws Exception{
+		 ArrayList<Document> lst = new ArrayList<Document>();
+		 for(String s: arr)
+		 {
+		 String strSQL = "select * from documents where id_document="+s;
+		 ConnectDB conn = new ConnectDB();
+		 try 
+		 {
+			 ResultSet rs = conn.getStatement().executeQuery(strSQL);
+			 while(rs.next()){
+				 int dID = rs.getInt("id_document");
+				 String dName = rs.getString("document_name");
+				 int cID = rs.getInt("idcate");
+				 int tID = rs.getInt("id_teacher");
+				 String stud = rs.getString("student");
+				 float point = rs.getFloat("point");
+				 int bID = rs.getInt("id_business");
+				 int clID = rs.getInt("id_class");
+				 int stat = rs.getInt("status");
+				 Document doc = new Document(dID, dName, cID, tID, point, stud, bID, clID, stat);
+				 
+				 lst.add(doc);
+			 }
+		 } catch (Exception e) 
+		 {
+			 throw new Exception(e.getMessage() +" Error at : " + strSQL);
+		 }
+		 
+		 //conn.closeConnet();
+		 }
+		 return lst;
+	}
 	
 	public static void main(String agrs[]) throws SQLException, Exception
 	 {
@@ -209,10 +240,11 @@ public class Document {
 		 //Document doc = new Document(2, "Test 2", 1,1,(float) 7.1,"keke",3,1,0);
 		 //updateDocument(doc);
 		//deleteDocumentByID(3);
-		 Document doc =  getDocumentByID(2);
-		 System.out.println(doc.getId_document());
-		 System.out.println(doc.getDocument_name());
-		
+		 //Document doc =  getDocumentByID(2);
+		// System.out.println(doc.getId_document());
+		 //System.out.println(doc.getDocument_name());
+			String[] arr = {"4","5","6"};
+		 ArrayList<Document> doc =  getOrderDocument(arr);
 		 List<Document> list = null;
 			
 			try {
@@ -221,7 +253,7 @@ public class Document {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		for(Document doc1 :list)
+		for(Document doc1 :doc)
 		{
 			System.out.println(doc1.getId_document());
 			System.out.println(doc1.getDocument_name());

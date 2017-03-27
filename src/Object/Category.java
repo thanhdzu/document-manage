@@ -61,7 +61,7 @@ public class Category {
 	{
 		
 		ConnectDB con = new ConnectDB();
-		String query="insert into categorys(catename) values(?)";
+		String query="insert into categorys(catename) values(N?)";
 	
 		PreparedStatement ps=con.openConnect().prepareStatement(query);  // generates sql query
 		ps.setString(1, str);

@@ -6,30 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Title here</title>
 </head>
 <body>
-	<table>
-	<thead>
-		<th>id</th>
-		<th>categorys</th>
-	</thead>
-	<tr>
-		<td>1</td>
-		<td>java</td>
-		
-		
-	</tr>
-	<c:forEach items="${cateList}" var="cate" >
-          <tr>
-             <td>${cate.idcate}</td>
-             <td>${cate.catename}</td>
-          </tr>
-       </c:forEach>	
-       
-	</table>
-	<form action="categoryList">
-	<input type="submit">
-	</form>
+	<% response.sendRedirect(request.getContextPath() +"/home"); %>
 </body>
 </html>

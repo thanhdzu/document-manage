@@ -59,7 +59,7 @@ public class Business {
 	{
 		
 		ConnectDB con = new ConnectDB();
-		String query="insert into business(business_name) values(?)";
+		String query="insert into business(business_name) values(N?)";
 	
 		PreparedStatement ps=con.openConnect().prepareStatement(query);  // generates sql query
 		ps.setString(1, str);

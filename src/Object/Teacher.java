@@ -60,7 +60,7 @@ public class Teacher {
 	{
 		
 		ConnectDB con = new ConnectDB();
-		String query="insert into teacher(teacher_name) values(?)";
+		String query="insert into teacher(teacher_name) values(N?)";
 	
 		PreparedStatement ps=con.openConnect().prepareStatement(query);  // generates sql query
 		ps.setString(1, str);

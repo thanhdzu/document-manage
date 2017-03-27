@@ -161,7 +161,7 @@ public class UserAccount {
 	{
 		
 		ConnectDB con = new ConnectDB();
-		String query="insert into user(username, password,fullname,email,phone,level) values(?,?,?,?,?,?)";
+		String query="insert into user(username, password,fullname,email,phone,level) values(?,?,N?,?,?,?)";
 	
 		PreparedStatement ps=con.openConnect().prepareStatement(query);  // generates sql query
 		ps.setString(1, user.getUsername());
