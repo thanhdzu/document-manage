@@ -80,7 +80,7 @@
                         
                     </div>
                     <!-- /.col-lg-12 -->
-                    <form class="form-group" action="orderDocument" >
+                    <form class="form-group" action="doOrderDocument" method="post">
                     <table class="table table-striped table-bordered table-hover" id="usertable">
                         <thead>
                             <tr align="center">
@@ -98,6 +98,7 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${docList}" var="doc"> 
+                        <input type="hidden"  name ="id" value="${doc.id_document}"/>
                         	<c:if test="${doc.status!=0}">
         						
     						
@@ -201,6 +202,7 @@
 	<script type="text/javascript">
 	  $(document).ready(function () {
 		  jQuery('#datepick').datetimepicker({
+			  format:'Y-m-d H:i:s',
 			  startDate:'+1971/05/01',//or 1986/12/08
 			  lang:'vie'
 			});
