@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
-<%@ page import ="Model.ConnectDB" %>
-<%@ page import="Object.Category" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home</title>
+    <title>Admin</title>
+
+		
 
     <!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +24,11 @@
 
     <!-- Custom Fonts -->
     <link href="${pageContext.request.contextPath}/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <link href="${pageContext.request.contextPath}/datatable/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    
+    
+	<link href="${pageContext.request.contextPath}/datatable/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/datatable/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+   
 </head>
 
 <body>
@@ -70,43 +72,85 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                    
+                        
+                        
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Xử lý Mượn - Trả<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List Category</a>
+                                    <a href="${pageContext.request.contextPath}/orderList">Chờ duyệt</a>
                                 </li>
                                 <li>
-                                    <a href="#">Add Category</a>
+                                    <a href="${pageContext.request.contextPath}/acceptOrderList">Nhận lại</a>
+                                </li>
+                                 <li>
+                                    <a href="${pageContext.request.contextPath}/recieveList">Đã nhận lại</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Tài liệu<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/documentList">Danh sách tài liệu</a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/addDocument">Thêm tài liệu</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-cube fa-fw"></i> Product<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cube fa-fw"></i> Tài khoản<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List Product</a>
+                                    <a href="${pageContext.request.contextPath}/userList">Danh sách tài khoản</a>
                                 </li>
                                 <li>
-                                    <a href="#">Add Product</a>
+                                    <a href="${pageContext.request.contextPath}/createAccount">Thêm tài khoản</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Lĩnh vực<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List User</a>
+                                    <a href="${pageContext.request.contextPath}/categoryList">Danh sách lĩnh vực</a>
                                 </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                          <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Giáo viên hướng dẫn<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Add User</a>
+                                    <a href="${pageContext.request.contextPath}/teacherList">Danh sách giáo viên</a>
                                 </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                          <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Cơ quan thực tập<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/businessList">Danh sách cơ quan</a>
+                                </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                          <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Lớp<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/classList">Danh sách lớp</a>
+                                </li>
+                               
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

@@ -174,27 +174,45 @@
                     <table class="table table-striped table-bordered table-hover" id="usertable">
                         <thead>
                             <tr align="center">
-                                <th>ID</th>
-                                <th>Tên Tài Liệu</th>
-                                <th>Sinh Viên</th>
-                                
-                                <th>Delete</th>
-                                <th>Edit</th>
+                               
+                                <th>Tên Đăng Nhập</th>
+                             	<th>Tài liệu</th>
+                                <th>Thời gian nhận</th>
+                                <th>Trạng thái</th>
+                                <th>Cập nhật</th>
+                                <th>Hủy</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${docList}" var="doc"> 
+                        <c:forEach items="${orderList}" var="ord"> 
+                        <c:if test="${ord.status ==2 }">
                         	<tr class="odd gradeX" align="center">
-                                <td>${doc.id_document}</td>
-                                <td>${doc.document_name}</td>
                                 <td>
-                                	${doc.student}
+                                	<c:forEach items="${AccList}" var="acc">
+                                		<c:if test="${ord.id_account == acc.id_account}">
+                                			${acc.username}
+                                		</c:if>
+                                	</c:forEach>
                                 </td>
+                                <td>
+                                	<c:forEach items="${DocList}" var="doc">
+                                		<c:if test="${ord.id_document == doc.id_document}">
+                                			${doc.document_name}
+                                		</c:if>
+                                	</c:forEach>
+                                </td>
+                                <td>
+                                	${ord.receive_time}
+                                </td>
+                        		<td>
+                        			CHờ duyệt	
+                        		</td>
                         
-                                
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="deleteDocument?id=${doc.id_document}"> Delete</a></td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="editDocument?id=${doc.id_document}">Edit</a></td>
+                               
+                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="acceptOrder?id=${ord.id_order}">Duyệt</a></td>
+                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="abortOrder?id=${ord.id_order}"> Hủy</a></td>
                             </tr>
+                            </c:if>
                         	</c:forEach>
                         </tbody>
                     </table>

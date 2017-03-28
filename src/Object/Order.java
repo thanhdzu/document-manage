@@ -67,26 +67,25 @@ public class Order {
 	
 	
 	
-	public static ArrayList<Document> getAllDocument() throws Exception{
-		 ArrayList<Document> lst = new ArrayList<Document>();
-		 String strSQL = "select * from documents";
+	public static ArrayList<Order> getAllOrder() throws Exception{
+		 ArrayList<Order> lst = new ArrayList<Order>();
+		 String strSQL = "select * from orders";
 		 ConnectDB conn = new ConnectDB();
 		 try 
 		 {
 			 ResultSet rs = conn.getStatement().executeQuery(strSQL);
 			 while(rs.next()){
-				 int dID = rs.getInt("id_document");
-				 String dName = rs.getString("document_name");
-				 int cID = rs.getInt("idcate");
-				 int tID = rs.getInt("id_teacher");
-				 String stud = rs.getString("student");
-				 float point = rs.getFloat("point");
-				 int bID = rs.getInt("id_business");
-				 int clID = rs.getInt("id_class");
+				 int ordID = rs.getInt("id_order");
+				
+				 int accID = rs.getInt("id_account");
+				 int docID = rs.getInt("id_document");
+				 String create = rs.getString("create_time");
+				 String recieve = rs.getString("receive_time");
+			
 				 int stat = rs.getInt("status");
-				 Document doc = new Document(dID, dName, cID, tID, point, stud, bID, clID, stat);
+				 Order ord = new Order(ordID, accID, docID, create, recieve, stat);
 				 
-				 lst.add(doc);
+				 lst.add(ord);
 			 }
 		 } catch (Exception e) 
 		 {
@@ -146,10 +145,43 @@ public class Order {
 
 	}
 	
+	public static void updateStatus(int idord,int stat) throws Exception
+	{
+		
+		ConnectDB con = new ConnectDB();
+	
+		String query="update orders set  status=? where id_order=?";
+				
+		PreparedStatement ps=con.openConnect().prepareStatement(query);  // generates sql query
+		ps.setInt(1, stat);
+		ps.setInt(2, idord);
+	
+		ps.executeUpdate(); // execute it on test database
+		System.out.println("update inserted");
+		
+		//ps.close();
+		con.closeConnet();
+
+	}
+	
+	public static int idDoc(int idord) throws Exception
+	{	int id = 0;
+		 String sql = "select o.id_document from orders o where id_order=?";
+		 ConnectDB conn = new ConnectDB();
+		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
+		 ps.setInt(1, idord);
+		 ResultSet rs = ps.executeQuery();
+		 if(rs.next()){
+			 id = rs.getInt("o.id_document");
+		 }
+		 return id;
+	}
+	
 	public static void deleteDocumentByID(int id) throws SQLException, Exception{
 		 String sql = "delete from documents where id_document=?";
 		 ConnectDB conn = new ConnectDB();
 		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
+		 
 		 ps.setInt(1, id);
 		 ps.executeUpdate();
 		 
@@ -265,6 +297,7 @@ public class Order {
 		String creDate =ft.format(dNow);
 		System.out.print(creDate);
 		insertOrder(arr, 1, ft.format(dNow), ft.format(dNow));
+		System.out.println("stat: "+ idDoc(2));
 	 } 
 	
 	

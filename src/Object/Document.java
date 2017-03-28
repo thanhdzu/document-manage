@@ -199,7 +199,17 @@ public class Document {
 			System.out.println("successfuly updated");
 		 
 	}
-	
+	public static void updateStatus(int doc, int stat) throws SQLException, Exception{
+		 String sql = "update documents set status=? where id_document=?";
+		 ConnectDB conn = new ConnectDB();
+		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
+		 	ps.setInt(1, stat);
+			ps.setInt(2, doc);
+			
+			ps.executeUpdate(); // execute it on test database
+			System.out.println("successfuly updated");
+		 
+	}
 	public static ArrayList<Document> getOrderDocument(String[] arr) throws Exception{
 		 ArrayList<Document> lst = new ArrayList<Document>();
 		 for(String s: arr)
