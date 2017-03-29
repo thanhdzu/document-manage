@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ page import="Object.UserAccount" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,11 +45,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Home</a>
+                <a class="navbar-brand" href="homeLogin">Trang chủ</a>
             </div>
             <!-- /.navbar-header -->
-			
-            
+			<c:if test="${loginuser != null }">
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
                 <li class="dropdown">
@@ -56,16 +56,35 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
+                        <li><a href="infoUser?idacc=${loginuser.id_account}"> Thông tin tài khoản</a>
+                        </li>
+                        <%
+                        	UserAccount user = new UserAccount();
+                        	UserAccount use = null;
+                        	use = (UserAccount)session.getAttribute("loginuser");
+                        	String s = "<li>"+ "<a href"+"="+"'documentList'" +">"+
+								
+								" Quản lý "+"</a>" +"</li>";
+                        	if(use.isLevel())
+                        	{
+                        		out.print(s);
+                                       
+                        	}
+                        	
+                        %>
                        
+                        <li><a href="docUser?idacc=${loginuser.id_account}"> Tài liệu đăng ký mượn</a>
+                        </li>
                         <li class="divider"></li>
-                        <li><a href="pageLogin"><i class="fa fa-sign-out fa-fw"></i> Đăng nhập</a>
+                        <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
             </ul>
-            
+            </c:if>
+         
             <!-- /.navbar-top-links -->
 
             
@@ -101,7 +120,7 @@
         						
     						
                         	<tr class="odd gradeX" align="center">
-                        		<td><input type="checkbox" value="${doc.id_document}" ${doc.status==2?'disabled' : '' } disabled } name="ckOrder"></td>
+                        		<td><input type="checkbox" value="${doc.id_document}" ${doc.status==2?'disabled' : '' }  name="ckOrder"></td>
                               	
                                 <td>${doc.document_name}</td>
                                 <td>

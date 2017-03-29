@@ -9,25 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Object.Business;
-import Object.Category;
-import Object.Classes;
 import Object.Document;
-import Object.Teacher;
+import Object.Order;
+import Object.UserAccount;
 
 /**
- * Servlet implementation class Home
+ * Servlet implementation class DocUser
  */
-@WebServlet("/home")
-public class Home extends HttpServlet {
+@WebServlet("/docUser")
+public class DocUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Home() {
+    public DocUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,43 +33,41 @@ public class Home extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Document> list = null;
-		
+		Order ord = new Order();
+		int id = Integer.parseInt(request.getParameter("idacc"));
+		List<Order> list = null;
 		try {
-			list = Document.getAllDocument();
+			list = Order.getOrderByAcc(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("docList", list);
-		List<Business> listBus = null;
-		List<Classes> listCla = null;
-		List<Category> listCat = null;
-		List<Teacher> listTea = null;
+		request.setAttribute("orderList", list);
+		List<UserAccount> listAcc = null;
+		List<Document> listDoc = null;
+	
 		
 			try {
-				listBus = Business.getAllBusiness();
-				listCla = Classes.getAllClass();
-				listCat = Category.getAllCategory();
-				listTea = Teacher.getAllTeacher();
+				listAcc = UserAccount.getAllUser();
+				listDoc = Document.getAllDocument();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		request.setAttribute("BusList", listBus);	
-		request.setAttribute("ClaList", listCla);
-		request.setAttribute("CatList", listCat);
-		request.setAttribute("TeaList", listTea);
-		
+		request.setAttribute("AccList", listAcc);	
+		request.setAttribute("DocList", listDoc);
+		;
+
+
 		
 		request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
 		//RequestDispatcher dispatcher = request.getServletContext()
 				//.getRequestDispatcher("/index.jsp");
 		RequestDispatcher dispatcher = request.getServletContext()
-		.getRequestDispatcher("/view/home.jsp");
+		.getRequestDispatcher("/view/doc_user.jsp");
 		dispatcher.forward(request, response);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

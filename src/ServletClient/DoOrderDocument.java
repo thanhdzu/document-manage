@@ -19,6 +19,7 @@ import Object.Classes;
 import Object.Document;
 import Object.Order;
 import Object.Teacher;
+import Object.UserAccount;
 
 /**
  * Servlet implementation class DoOrderDocument
@@ -47,6 +48,8 @@ public class DoOrderDocument extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UserAccount user = new UserAccount();
+		UserAccount use = null;
 		Order ord = new Order();
 		String daterecieve = request.getParameter("dtp");
 		Date dNow = new Date();
@@ -54,8 +57,13 @@ public class DoOrderDocument extends HttpServlet {
 	      new SimpleDateFormat ("yyyy-MM-dd  hh:mm:ss");
 
 	    
-		String creDate =ft.format(dNow).toString();
-		int idacc=1;
+	      	String creDate =ft.format(dNow).toString();
+	      	
+		 	HttpSession session=request.getSession(false);  
+	        if(session!=null){  
+	        	use = (UserAccount) session.getAttribute("loginuser");
+	        }  
+		int idacc= use.getId_account();
 		String[] docs = request.getParameterValues("id");
 		try {
 			ord.insertOrder(docs, idacc, daterecieve,creDate);
@@ -73,7 +81,7 @@ public class DoOrderDocument extends HttpServlet {
 		//RequestDispatcher dispatcher = request.getServletContext()
 		//.getRequestDispatcher("/view/orderDocument.jsp");
 		//dispatcher.forward(request, response);
-        response.sendRedirect(request.getContextPath()+"/home");
+        response.sendRedirect(request.getContextPath()+"/homeLogin");
 		doGet(request, response);
 	}
 

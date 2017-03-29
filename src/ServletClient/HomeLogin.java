@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Object.Business;
 import Object.Category;
@@ -18,16 +17,16 @@ import Object.Document;
 import Object.Teacher;
 
 /**
- * Servlet implementation class Home
+ * Servlet implementation class HomeLogin
  */
-@WebServlet("/home")
-public class Home extends HttpServlet {
+@WebServlet("/homeLogin")
+public class HomeLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Home() {
+    public HomeLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -72,7 +71,7 @@ public class Home extends HttpServlet {
 		//RequestDispatcher dispatcher = request.getServletContext()
 				//.getRequestDispatcher("/index.jsp");
 		RequestDispatcher dispatcher = request.getServletContext()
-		.getRequestDispatcher("/view/home.jsp");
+		.getRequestDispatcher("/view/homeLogin.jsp");
 		dispatcher.forward(request, response);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

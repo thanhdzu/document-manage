@@ -87,110 +87,23 @@
          
             <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        
-                        
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Xử lý Mượn - Trả<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/orderList">Chờ duyệt</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/acceptOrderList">Nhận lại</a>
-                                </li>
-                                 <li>
-                                    <a href="${pageContext.request.contextPath}/recieveList">Đã nhận lại</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Tài liệu<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/documentList">Danh sách tài liệu</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/addDocument">Thêm tài liệu</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-cube fa-fw"></i> Tài khoản<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/userList">Danh sách tài khoản</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/createAccount">Thêm tài khoản</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Lĩnh vực<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/categoryList">Danh sách lĩnh vực</a>
-                                </li>
-                               
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                          <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Giáo viên hướng dẫn<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/teacherList">Danh sách giáo viên</a>
-                                </li>
-                               
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                          <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Cơ quan thực tập<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/businessList">Danh sách cơ quan</a>
-                                </li>
-                               
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                          <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Lớp<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/classList">Danh sách lớp</a>
-                                </li>
-                               
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
+            
         </nav>
 
         <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
+      	<div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">User
-                            <small>Edit</small>
+                        
+                    </div>
+         
+                        <h1 class="page-header">Cập nhật
+                            <small>Thông tin</small>
                         </h1>
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <form action="doEditAccount" method="POST">
+                        <form action="updateInfo" method="POST">
                             <div class="form-group">
                             	<input type="hidden" name ="id" value="${use.id_account}" />
                             	<p>${stat}</p>
@@ -219,18 +132,15 @@
                                 <label>Email</label>
                                 <input type="email" class="form-control" name="txtEmail" value="${use.email}" placeholder="Please Enter Email" />
                             </div>
-                            <div class="form-group">
-                                <label>Quyền</label>
-                                <label class="radio-inline">
-                                    <input name="rdoLevel" value="1" ${use.level==true?'checked':''}   type="radio">Admin
-                                </label>
-                                <label class="radio-inline">
-                                    <input name="rdoLevel" value="0" ${use.level== false?'checked':''}   type="radio">Member
-                                </label>
+                            
+                                
+                                    <input name="rdoLevel" value="0"  type="hidden">
+                                
                                    
-                            </div>
+                            <div class="form-group">
                             <button type="submit" class="btn btn-default">Cập nhật</button>
-                            <a href="${pageContext.request.contextPath}/userList">Cancel</a>
+                            <a href="${pageContext.request.contextPath}/homeLogin">Cancel</a>
+                            </div>
                         <form>
                         
                         

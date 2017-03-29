@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ page import="Object.UserAccount" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,11 +45,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Home</a>
+                <a class="navbar-brand" href="homeLogin">Trang chủ</a>
             </div>
             <!-- /.navbar-header -->
-			
-            
+			<c:if test="${loginuser != null }">
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
                 <li class="dropdown">
@@ -56,16 +56,35 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
+                        <li><a href="infoUser?idacc=${loginuser.id_account}"> Thông tin tài khoản</a>
+                        </li>
+                        <%
+                        	UserAccount user = new UserAccount();
+                        	UserAccount use = null;
+                        	use = (UserAccount)session.getAttribute("loginuser");
+                        	String s = "<li>"+ "<a href"+"="+"'documentList'" +">"+
+								
+								" Quản lý "+"</a>" +"</li>";
+                        	if(use.isLevel())
+                        	{
+                        		out.print(s);
+                                       
+                        	}
+                        	
+                        %>
                        
+                        <li><a href="docUser?idacc=${loginuser.id_account}"> Tài liệu đăng ký mượn</a>
+                        </li>
                         <li class="divider"></li>
-                        <li><a href="pageLogin"><i class="fa fa-sign-out fa-fw"></i> Đăng nhập</a>
+                        <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
             </ul>
-            
+            </c:if>
+         
             <!-- /.navbar-top-links -->
 
             
@@ -83,90 +102,58 @@
                     <table class="table table-striped table-bordered table-hover" id="usertable">
                         <thead>
                             <tr align="center">
-                                <th>Mượn</th>
-                                <th>Tên Tài Liệu</th>
-                                <th>Lĩnh vực</th>
-                                <th>Giáo viên HD</th>
-                                <th>Điểm</th>
-                                <th>Sinh Viên</th>
-                                <th>Cơ quan TT</th>
-                                <th>Lớp</th>
+                               
+                                <th>Tên Đăng Nhập</th>
+                             	<th>Tài liệu</th>
+                                <th>Thời gian nhận</th>
                                 <th>Trạng thái</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${docList}" var="doc"> 
-                        	<c:if test="${doc.status!=0}">
-        						
-    						
+                        <c:forEach items="${orderList}" var="ord"> 
+                        <c:if test="${ord.status ==0  ||ord.status ==2 ||ord.status ==3 }">
                         	<tr class="odd gradeX" align="center">
-                        		<td><input type="checkbox" value="${doc.id_document}" ${doc.status==2?'disabled' : '' } disabled } name="ckOrder"></td>
-                              	
-                                <td>${doc.document_name}</td>
                                 <td>
-                              		<c:forEach var="cat" items='${CatList}' >
-  									<c:if test="${doc.idcate == cat.idcate}">
-    								
-      								
-      									<p><c:out value="${cat.catename}"></c:out></p>
-      								
-    								
-  									</c:if>
-									</c:forEach>
-                              	</td>
-                              	  <td>
-                              		<c:forEach var="tea" items='${TeaList}'>
-  									<c:if test="${doc.id_teacher == tea.id_teacher}">
-    								
-      								
-      									<p><c:out value="${tea.teacher_name}"></c:out></p>
-      								
-    								
-  									</c:if>
-									</c:forEach>
-                              	</td>
-                              	<td>${doc.point}</td>
-                                <td>
-                                	${doc.student}
+                                	<c:forEach items="${AccList}" var="acc">
+                                		<c:if test="${ord.id_account == acc.id_account}">
+                                			${acc.username}
+                                		</c:if>
+                                	</c:forEach>
                                 </td>
-                        			  <td>
-                              		<c:forEach var="bus" items='${BusList}'>
-  									<c:if test="${doc.id_business == bus.id_business}">
-    								
-      								
-      									<p><c:out value="${bus.business_name}"></c:out></p>
-      								
-    								
-  									</c:if>
-									</c:forEach>
-                              	</td>
-                                	  <td>
-                              		<c:forEach var="cla" items='${ClaList}'>
-  									<c:if test="${doc.id_class == cla.id_class}">
-    								
-      								
-      									<p><c:out value="${cla.class_name}"></c:out></p>
-      								
-    								
-  									</c:if>
-									</c:forEach>
-                              	</td>
                                 <td>
-                                	<c:if test="${doc.status == 1}">
-                                		<p>Đang có</p>
-                                	</c:if>
-                                	<c:if test="${doc.status == 2}">
-                                		<p>Đã được mượn</p>
-                                	</c:if>
+                                	<c:forEach items="${DocList}" var="doc">
+                                		<c:if test="${ord.id_document == doc.id_document}">
+                                			${doc.document_name}
+                                		</c:if>
+                                	</c:forEach>
                                 </td>
-                            
+                                <td>
+                                	${ord.receive_time}
+                                </td>
+                        		<td>
+                        				<c:if test="${ord.status ==0}">
+                                			Hủy
+                                		</c:if>
+                                		<c:if test="${ord.status ==2}">
+                                			Chờ duyệt
+                                		</c:if>
+                                		<c:if test="${ord.status ==3}">
+                                			Đã duyệt
+                                		</c:if>
+                                		<c:if test="${ord.status ==1}">
+                                			Đã trả
+                                		</c:if>
+                        		</td>
+                        
+                               
+                               
                             </tr>
                             </c:if>
                         	</c:forEach>
                         </tbody>
                     </table>
-                    <div class="form=group" align="center">  <button type="submit" class="btn btn-default">Mượn</button></div>
+                  
                    
                     </form>
                 </div>

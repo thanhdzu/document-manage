@@ -228,6 +228,27 @@ public class UserAccount {
 		 return user;
 	}
 	
+	public static UserAccount getUserLogin(String uname, String pass)throws Exception{
+		 String sql = "select * from user where username=? and password=?";
+		 ConnectDB conn = new ConnectDB();
+		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
+		 ps.setString(1, uname);
+		 ps.setString(2, pass);
+		 ResultSet rs = ps.executeQuery();
+		 UserAccount user = null;
+		 if(rs.next()){
+			 int id_account = rs.getInt("id_account");
+			 String username = rs.getString("username");
+			 String password = rs.getString("password");
+			 String fullname = rs.getString("fullname");
+			 String email = rs.getString("email");
+			 String phone = rs.getString("phone");
+			 boolean level = rs.getBoolean("level");
+			 user = new UserAccount(id_account, username, password, fullname, email, phone, level);
+		 }
+		 return user;
+	}
+	
 	public static void updatePassword(int id_acc, String pass) throws SQLException, Exception
 	{
 		String sql = "update user set password=? where id_account=?";

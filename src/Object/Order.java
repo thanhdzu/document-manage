@@ -95,6 +95,35 @@ public class Order {
 		 return lst;
 	}
 	
+	
+	public static ArrayList<Order> getOrderByAcc(int id) throws Exception{
+		 ArrayList<Order> lst = new ArrayList<Order>();
+		 String strSQL = "select * from orders where id_account="+id;
+		 ConnectDB conn = new ConnectDB();
+		 try 
+		 {
+			 ResultSet rs = conn.getStatement().executeQuery(strSQL);
+			 while(rs.next()){
+				 int ordID = rs.getInt("id_order");
+				
+				 int accID = rs.getInt("id_account");
+				 int docID = rs.getInt("id_document");
+				 String create = rs.getString("create_time");
+				 String recieve = rs.getString("receive_time");
+			
+				 int stat = rs.getInt("status");
+				 Order ord = new Order(ordID, accID, docID, create, recieve, stat);
+				 
+				 lst.add(ord);
+			 }
+		 } catch (Exception e) 
+		 {
+			 throw new Exception(e.getMessage() +" Error at : " + strSQL);
+		 }
+		 conn.closeConnet();
+		 return lst;
+	}
+	
 	public static void insertOrder(String[] arr, int acc, String recieve, String create) throws Exception
 	{
 		
@@ -177,91 +206,9 @@ public class Order {
 		 return id;
 	}
 	
-	public static void deleteDocumentByID(int id) throws SQLException, Exception{
-		 String sql = "delete from documents where id_document=?";
-		 ConnectDB conn = new ConnectDB();
-		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
-		 
-		 ps.setInt(1, id);
-		 ps.executeUpdate();
-		 
-	}
-	 
-	 
-	public static Document getDocumentByID(int docID)throws Exception{
-		 String sql = "select * from documents where id_document=?";
-		 ConnectDB conn = new ConnectDB();
-		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
-		 ps.setInt(1, docID);
-		 ResultSet rs = ps.executeQuery();
-		 Document doc = null;
-		 if(rs.next()){
-			 int id_document = rs.getInt("id_document");
-			 String document_name = rs.getString("document_name");	
-			 int idcate = rs.getInt("idcate");
-			 int id_teacher = rs.getInt("id_teacher");
-			 float point = rs.getFloat("point");
-			 String student = rs.getString("student");
-			 int id_business = rs.getInt("id_business");
-			 int id_class = rs.getInt("id_class");
-			 int status = rs.getInt("status");
-			 doc = new Document(id_document, document_name, idcate, id_teacher, point, student, id_business, id_class, status);
-		 }
-		 return doc;
-	}
-	
 
 	
-	public static void updateDocument(Document doc) throws SQLException, Exception{
-		 String sql = "update documents set  document_name=?, idcate=?,id_teacher=?,point=?,student=?,id_business=?, id_class=?, status=? where id_document=?";
-		 ConnectDB conn = new ConnectDB();
-		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
-		 	ps.setString(1, doc.getDocument_name());
-			ps.setInt(2, doc.getIdcate());
-			ps.setInt(3, doc.getId_teacher());
-			ps.setFloat(4, doc.getPoint());
-			ps.setString(5, doc.getStudent());
-			ps.setInt(6, doc.getId_business());
-			ps.setInt(7, doc.getId_class());
-			ps.setInt(8, doc.getStatus());
-			ps.setInt(9, doc.getId_document());
-			ps.executeUpdate(); // execute it on test database
-			System.out.println("successfuly updated");
-		 
-	}
-	
-	public static ArrayList<Document> getOrderDocument(String[] arr) throws Exception{
-		 ArrayList<Document> lst = new ArrayList<Document>();
-		 for(String s: arr)
-		 {
-		 String strSQL = "select * from documents where id_document="+s;
-		 ConnectDB conn = new ConnectDB();
-		 try 
-		 {
-			 ResultSet rs = conn.getStatement().executeQuery(strSQL);
-			 while(rs.next()){
-				 int dID = rs.getInt("id_document");
-				 String dName = rs.getString("document_name");
-				 int cID = rs.getInt("idcate");
-				 int tID = rs.getInt("id_teacher");
-				 String stud = rs.getString("student");
-				 float point = rs.getFloat("point");
-				 int bID = rs.getInt("id_business");
-				 int clID = rs.getInt("id_class");
-				 int stat = rs.getInt("status");
-				 Document doc = new Document(dID, dName, cID, tID, point, stud, bID, clID, stat);
-				 
-				 lst.add(doc);
-			 }
-		 } catch (Exception e) 
-		 {
-			 throw new Exception(e.getMessage() +" Error at : " + strSQL);
-		 }
-		 
-		 //conn.closeConnet();
-		 }
-		 return lst;
-	}
+	 
 	
 	public static void main(String agrs[]) throws SQLException, Exception
 	 {

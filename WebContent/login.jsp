@@ -34,13 +34,15 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Đăng nhập</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="userList" method="POST">
+                        <form role="form" action="login" method="post">
+                        	<p>${er}<p>
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                	
+                                    <input class="form-control" placeholder="MSSV" name="username" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
