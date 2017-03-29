@@ -14,9 +14,17 @@ public class UserAccount {
 	private String password;
 	private String fullname;
 	private String email;
+	private String classes;
 	private String phone;
 	private boolean level;
 	
+	
+	public String getClasses() {
+		return classes;
+	}
+	public void setClasses(String classes) {
+		this.classes = classes;
+	}
 	public boolean isLevel() {
 		return level;
 	}
@@ -109,6 +117,7 @@ public class UserAccount {
 		this.password = password;
 		this.fullname = fullname;
 		this.email = email;
+	
 		this.phone = phone;
 		this.level = level;
 	}
@@ -156,6 +165,25 @@ public class UserAccount {
 		 conn.closeConnet();
 		 return lst;
 	}
+	
+	
+	
+	 public static boolean checkUser(String user) throws Exception {
+		 	ConnectDB con = new ConnectDB();
+	        String query = "SELECT * FROM user WHERE username = '" + user + "'";
+	        PreparedStatement ps;
+	        try {
+	            ps = con.openConnect().prepareStatement(query);
+	            ResultSet rs = ps.executeQuery();
+	            while (rs.next()) {
+	                con.closeConnet();
+	                return true;
+	            }
+	        } catch (SQLException ex) {
+	        	
+	        }
+	        return false;
+	    }
 	
 	public static void insertAccount(UserAccount user) throws Exception
 	{
@@ -293,8 +321,8 @@ public class UserAccount {
 	
 	public static void main(String agrs[]) throws SQLException, Exception
 	 {
-		 //UserAccount user = new UserAccount("tutu", "123456", "van a", "avd@mail.com", "123456789", false);
-		 //insertAccount(user);
+		 UserAccount user = new UserAccount("123445", "123456", "van a", "avd@mail.com", "123456789", false);
+		 insertAccount(user);
 		 //UserAccount user = new UserAccount("tet", "000", "van a", "avd@mail.com", "123", false, 3);
 		 //updateAccountNoPSW(user);
 		//deleteAccountByID(3);

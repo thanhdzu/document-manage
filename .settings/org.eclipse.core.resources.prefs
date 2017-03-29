@@ -5,4 +5,6 @@ encoding//src/Servlet/DoEditAccount.java=UTF-8
 encoding//src/Servlet/DoEditAccountPW.java=UTF-8
 encoding//src/Servlet/DoEditDocument.java=UTF-8
 encoding//src/ServletClient/UpdateInfo.java=UTF-8
+encoding//src/servlet2/CheckEmail.java=UTF-8
+encoding//src/servlet2/CheckUser.java=UTF-8
 encoding//src/servlet2/Login.java=UTF-8

@@ -179,6 +179,11 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+
+
+
+	
+
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -190,23 +195,27 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <form action="doCreateAccount" method="POST">
+                        <form action="doCreateAccount" onsubmit="return checkAll();" method="POST">
                         	 <div class="form-group">
                                 <label>${stat}</label>
                                 
                             </div>
                             <div class="form-group">
                                 <label>Tên đăng nhập</label>
-                                <input class="form-control" name="txtUser" placeholder="Please Enter Username" required="required"/>
+                                <input class="form-control" id="uname" name="txtUser" placeholder="Please Enter Username" required="required"/>
+                                <p id="status" class="status"></p>
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu</label>
-                                <input type="password" class="form-control" name="txtPass" placeholder="Please Enter Password" required="required"/>
+                                <input type="password" class="form-control" name="txtPass" id="txtPass" onkeyup="checkPasswordLenght();" placeholder="Please Enter Password" required="required"/>
+                                <p id="divCheckPasswordLenght" class="divCheckPasswordLenght"></p>
                             </div>
                             <div class="form-group">
                                 <label>Nhập lại mật khẩu</label>
-                                <input type="password" class="form-control" name="txtRePass" placeholder="Please Enter RePassword" required="required"/>
+                                <input type="password" class="form-control" name="txtRePass" id="txtRePass" onkeyup="checkPasswordMatch();" placeholder="Please Enter RePassword" required="required"/>
+                                <p id="divCheckPasswordMatch" class="divCheckPasswordMatch"></p>
                             </div>
+                            
                              <div class="form-group">
                                 <label>Họ tên</label>
                                 <input  class="form-control" name="txtName" placeholder="Please Enter Full name" required="required"/>
@@ -218,7 +227,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="txtEmail" placeholder="Please Enter Email" required="required" />
+                                <input type="email" class="form-control" id="email" name="txtEmail" placeholder="Please Enter Email" required="required" />
+                                <p id="statusmail" class="statusmail"></p>
                             </div>
                             <div class="form-group">
                                 <label>Quyền</label>
@@ -231,7 +241,7 @@
                             </div>
                             <button type="submit" class="btn btn-default">Thêm</button>
                             <button type="reset" class="btn btn-default">Làm lại</button>
-                        <form>
+                        </form>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -267,6 +277,119 @@
         });
     });
     </script>
+    
+    <script src="jquery.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+          $(document).ready(function(){
+              $("#uname").change(function(){
+                  var txtUser = $(this).val();
+                  if(txtUser.length >= 1){
+                      $("#status").html("<img src='img/ajax-loader.gif'><font color=gray> Checking availability...</font>");
+                       $.ajax({
+                          type: "POST",
+                          url: "checkUser",
+                          data: "txtUser="+ txtUser,
+                          success: function(msg){
+
+                              $("#status").ajaxComplete(function(event, request, settings){
+                                   
+                                  $("#status").html(msg);
+
+                              });
+                          }
+                      }); 
+                  }
+                  else{
+                       
+                      $("#status").html("<font color=red>Tài khoản phải >= <b>9</b> ký tự</font>");
+                  }
+                  
+              });
+          });
+        </script>
+          <script type="text/javascript">
+          $(document).ready(function(){
+              $("#email").change(function(){
+                  var txtEmail = $(this).val();
+                  if(txtEmail.length >= 3){
+                      $("#statusmail").html("<img src='img/ajax-loader.gif'><font color=gray> Checking availability...</font>");
+                       $.ajax({
+                          type: "POST",
+                          url: "checkEmail",
+                          data: "txtEmail="+ txtEmail,
+                          success: function(msg){
+
+                              $("#statusmail").ajaxComplete(function(event, request, settings){
+                                   
+                            	  if( msg == "")
+                            		  {
+                            		  $("#statusmail").html("").css("color","green");
+                            		  }
+                            	  else
+                            		  {
+                            		  	$("#statusmail").html(msg);
+                            		  }
+                                  
+
+                              });
+                          }
+                      }); 
+                  }
+                  else{
+                       
+                      $("#statusmail").html("<font color=red>Tài khoản phải >= <b>9</b> ký tự</font>");
+                  }
+                  
+              });
+          });
+        </script>
+        
+        
+        
+       <script type="text/javascript">
+			function checkPasswordMatch() {
+    			var password = $("#txtPass").val();
+    			var confirmPassword = $("#txtRePass").val();
+
+    			if (password != confirmPassword)
+        			$("#divCheckPasswordMatch").html("Mật khẩu không đúng!").css("color","red");
+    			else
+        			$("#divCheckPasswordMatch").html("").css("color","green");
+				}
+		</script>
+		
+		<script type="text/javascript">
+			function checkPasswordLenght() {
+    			var password = $("#txtPass").val();
+
+    			if (password.length<=6)
+        			$("#divCheckPasswordLenght").html("Mật khẩu phải dài hơn 6 ký tự!").css("color","red");
+    			else
+        			$("#divCheckPasswordLenght").html("").css("color","green");
+				}
+		</script>
+       
+       <script type="text/javascript">
+			function checkAll() {
+				var userhtml = $(".status").text();
+	       		var mailhtml = $(".statusmail").text();
+	       		var passlength = $(".divCheckPasswordLenght").text();
+	       		var passmatch = $( ".divCheckPasswordMatch").text();
+	       		if(userhtml == "" && passlength ==""  && passmatch == "")
+	       		{
+	       			return true;
+	       		}
+	       		else{
+	       			return false;
+	       		}
+	       		
+	       				
+			}
+		</script>
+       
+      
+        
 </body>
 
 </html>
