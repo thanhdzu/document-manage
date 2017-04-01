@@ -41,6 +41,7 @@ public class DoEditCategory extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		Category cat = new Category();
 		String id = request.getParameter("idcate");
 		int idcat = Integer.parseInt(id);

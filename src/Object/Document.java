@@ -183,7 +183,7 @@ public class Document {
 
 	
 	public static void updateDocument(Document doc) throws SQLException, Exception{
-		 String sql = "update documents set  document_name=?, idcate=?,id_teacher=?,point=?,student=?,id_business=?, id_class=?, status=? where id_document=?";
+		 String sql = "update documents set  document_name=N?, idcate=?,id_teacher=?,point=?,student=N?,id_business=?, id_class=?, status=? where id_document=?";
 		 ConnectDB conn = new ConnectDB();
 		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
 		 	ps.setString(1, doc.getDocument_name());

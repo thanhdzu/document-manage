@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Home</a>
+                <a class="navbar-brand" href="home">Trang chủ</a>
             </div>
             <!-- /.navbar-header -->
 			
@@ -70,16 +70,20 @@
 
             
         </nav>
+        
+		 <jsp:include page="_notice.jsp"></jsp:include>
 
+	
         <!-- Page Content -->
     
             <div class="container-fluid">
                 <div class="row">
+                <h2 class="text-center">Danh sách tài liệu</h2> 
                     <div class="col-lg-12">
                         
-                    </div>
+                    
                     <!-- /.col-lg-12 -->
-                    <form class="form-group" action="orderDocument" method="post" >
+                    <form class="form-group col-md-12" action="orderDocument" method="post" >
                     <table class="table table-striped table-bordered table-hover" id="usertable">
                         <thead>
                             <tr align="center">
@@ -169,6 +173,7 @@
                     <div class="form=group" align="center">  <button type="submit" class="btn btn-default">Mượn</button></div>
                    
                     </form>
+                    </div>
                 </div>
                 <!-- /.row -->
             </div>
@@ -222,7 +227,7 @@
                 });
             });
         </script>
-
+<jsp:include page="_footer.jsp"></jsp:include>
 </body>
 
 </html>

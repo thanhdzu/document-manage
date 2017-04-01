@@ -38,6 +38,7 @@ public class DoEditBusiness extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		Business bus = new Business();
 		String id = request.getParameter("idbus");
 		int idbus = Integer.parseInt(id);

@@ -15,6 +15,7 @@ import Object.Business;
 import Object.Category;
 import Object.Classes;
 import Object.Document;
+import Object.Notice;
 import Object.Teacher;
 
 /**
@@ -50,12 +51,13 @@ public class Home extends HttpServlet {
 		List<Classes> listCla = null;
 		List<Category> listCat = null;
 		List<Teacher> listTea = null;
-		
+		List<Notice> listNot = null;
 			try {
 				listBus = Business.getAllBusiness();
 				listCla = Classes.getAllClass();
 				listCat = Category.getAllCategory();
 				listTea = Teacher.getAllTeacher();
+				listNot = Notice.getAllNotice();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -65,7 +67,7 @@ public class Home extends HttpServlet {
 		request.setAttribute("ClaList", listCla);
 		request.setAttribute("CatList", listCat);
 		request.setAttribute("TeaList", listTea);
-		
+		request.setAttribute("NotList", listNot);
 		
 		request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");

@@ -33,6 +33,7 @@ public class AddDocument extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		List<Business> listBus = null;
 		List<Classes> listCla = null;
 		List<Category> listCat = null;

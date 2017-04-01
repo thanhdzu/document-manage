@@ -36,7 +36,7 @@ public class ConnectDB {
 	 	 if(connect == null)
 	 	 {
 	 		 hasDriver();
-	 		 String url = "jdbc:mysql://localhost/project";
+	 		 String url = "jdbc:mysql://localhost/project?useUnicode=true&characterEncoding=UTF-8";
 	 	 
 	 	 try 
 	 	 {

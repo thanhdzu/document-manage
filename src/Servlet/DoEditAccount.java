@@ -40,6 +40,7 @@ public class DoEditAccount extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		UserAccount user = new UserAccount();
 		
 		int id = Integer.parseInt(request.getParameter("id"));

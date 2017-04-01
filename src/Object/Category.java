@@ -101,7 +101,7 @@ public class Category {
 		 return cat;
 	}
 	public static void updateCategory(int cat, String catt) throws SQLException, Exception{
-		 String sql = "update categorys set idcate=?, catename=? where idcate=?";
+		 String sql = "update categorys set idcate=?, catename=N? where idcate=?";
 		 ConnectDB conn = new ConnectDB();
 		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
 		 ps.setInt(1, cat);

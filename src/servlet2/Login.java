@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import Object.UserAccount;
 import sun.rmi.server.Dispatcher;
+import Model.MD5Digest;;
 
 /**
  * Servlet implementation class Login
@@ -41,8 +42,9 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
+		String password1 = request.getParameter("password");
+		MD5Digest md = new MD5Digest();
+		String password = md.getMD5(password1);
 		UserAccount user = new UserAccount();
 		UserAccount use = null;
 		try {

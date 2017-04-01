@@ -38,11 +38,11 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" action="login" method="post">
-                        	<p>${er}<p>
+                        	
                             <fieldset>
                                 <div class="form-group">
-                                	
                                     <input class="form-control" placeholder="MSSV" name="username" type="text" autofocus>
+                                    <p>${er}<p>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">

@@ -36,7 +36,7 @@ public class AddBusiness extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		request.setCharacterEncoding("utf-8");
 		String bus = (String)request.getParameter("txtBusName");
 		Business busi = new Business();
 		try {

@@ -100,7 +100,7 @@ public class Teacher {
 		 return tea;
 	}
 	public static void updateTeacher(int tea, String teac) throws SQLException, Exception{
-		 String sql = "update teacher set id_teacher=?, teacher_name=? where id_teacher=?";
+		 String sql = "update teacher set id_teacher=?, teacher_name=N? where id_teacher=?";
 		 ConnectDB conn = new ConnectDB();
 		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
 		 ps.setInt(1, tea);

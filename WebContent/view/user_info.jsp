@@ -37,58 +37,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="homeLogin">Trang chủ</a>
-            </div>
-            <!-- /.navbar-header -->
-			<c:if test="${loginuser != null }">
-            <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="infoUser?idacc=${loginuser.id_account}"> Thông tin tài khoản</a>
-                        </li>
-                        <%
-                        	UserAccount user = new UserAccount();
-                        	UserAccount use = null;
-                        	use = (UserAccount)session.getAttribute("loginuser");
-                        	String s = "<li>"+ "<a href"+"="+"'documentList'" +">"+
-								
-								" Quản lý "+"</a>" +"</li>";
-                        	if(use.isLevel())
-                        	{
-                        		out.print(s);
-                                       
-                        	}
-                        	
-                        %>
-                       
-                        <li><a href="docUser?idacc=${loginuser.id_account}"> Tài liệu đăng ký mượn</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            </c:if>
-         
-            <!-- /.navbar-top-links -->
-
-            
-        </nav>
+        <jsp:include page="_menu.jsp"></jsp:include>
 
         <!-- Page Content -->
       	<div class="container-fluid">
@@ -102,8 +51,8 @@
                         </h1>
                     </div>
                     <!-- /.col-lg-12 -->
-                    <div class="col-lg-7" style="padding-bottom:120px">
-                        <form action="updateInfo" method="POST">
+                    <div class="col-md-8" style="padding-bottom:120px">
+                        <form action="updateInfo" class="col-md-8" method="POST">
                             <div class="form-group">
                             	<input type="hidden" name ="id" value="${use.id_account}" />
                             	<p>${stat}</p>
@@ -117,11 +66,13 @@
                             </div>
                           	 <div class="form-group">
                                 <label>Mật khẩu</label>
-                                <input type="password" class="form-control" name="txtPass" placeholder="Please Enter Password" />
+                                <input type="password" id="txtPass" class="form-control" name="txtPass" onkeyup="checkPasswordLenght();" placeholder="Please Enter Password" />
+                                <p id="divCheckPasswordLenght" class="divCheckPasswordLenght"></p>
                             </div>
                             <div class="form-group">
                                 <label>Nhập lại mật khẩu</label>
-                                <input type="password" class="form-control" name="txtRePass" placeholder="Please Enter RePassword" />
+                                <input type="password" id="txtRePass" class="form-control" name="txtRePass" onkeyup="checkPasswordMatch();" placeholder="Please Enter RePassword" />
+                                 <p id="divCheckPasswordMatch" class="divCheckPasswordMatch"></p>
                             </div>
                              
                              <div class="form-group">
@@ -130,7 +81,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="txtEmail" value="${use.email}" placeholder="Please Enter Email" />
+                                <input type="email" id="email" class="form-control" name="txtEmail" value="${use.email}" placeholder="Please Enter Email" />
+                                <p id="statusmail" class="statusmail"></p>
                             </div>
                             
                                 
@@ -188,6 +140,89 @@
         });
     });
     </script>
+    <script src="jquery.js" type="text/javascript"></script>
+      <script type="text/javascript">
+          $(document).ready(function(){
+              $("#email").change(function(){
+                  var txtEmail = $(this).val();
+                  if(txtEmail.length >= 3){
+                      $("#statusmail").html("<img src='img/ajax-loader.gif'><font color=gray> Checking availability...</font>");
+                       $.ajax({
+                          type: "POST",
+                          url: "checkEmail",
+                          data: "txtEmail="+ txtEmail,
+                          success: function(msg){
+
+                              $("#statusmail").ajaxComplete(function(event, request, settings){
+                                   
+                            	  if( msg == "")
+                            		  {
+                            		  $("#statusmail").html("").css("color","green");
+                            		  }
+                            	  else
+                            		  {
+                            		  	$("#statusmail").html(msg);
+                            		  }
+                                  
+
+                              });
+                          }
+                      }); 
+                  }
+                  else{
+                       
+                      $("#statusmail").html("<font color=red>Tài khoản phải >= <b>9</b> ký tự</font>");
+                  }
+                  
+              });
+          });
+        </script>
+        
+        
+        
+       <script type="text/javascript">
+			function checkPasswordMatch() {
+    			var password = $("#txtPass").val();
+    			var confirmPassword = $("#txtRePass").val();
+
+    			if (password != confirmPassword)
+        			$("#divCheckPasswordMatch").html("Mật khẩu không đúng!").css("color","red");
+    			else
+        			$("#divCheckPasswordMatch").html("").css("color","green");
+				}
+		</script>
+		
+		<script type="text/javascript">
+			function checkPasswordLenght() {
+    			var password = $("#txtPass").val();
+
+    			if (password.length<=6)
+        			$("#divCheckPasswordLenght").html("Mật khẩu phải dài hơn 6 ký tự!").css("color","red");
+    			else
+        			$("#divCheckPasswordLenght").html("").css("color","green");
+				}
+		</script>
+       
+       <script type="text/javascript">
+			function checkAll() {
+				var userhtml = $(".status").text();
+	       		var mailhtml = $(".statusmail").text();
+	       		var passlength = $(".divCheckPasswordLenght").text();
+	       		var passmatch = $( ".divCheckPasswordMatch").text();
+	       		if(passlength ==""  && passmatch == "")
+	       		{
+	       			return true;
+	       		}
+	       		else{
+	       			return false;
+	       		}
+	       		
+	       				
+			}
+		</script>
+		
+		<jsp:include page="_footer.jsp"></jsp:include>
+		
 </body>
 
 </html>

@@ -42,6 +42,7 @@ public class DoCreateAccount extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		UserAccount user = new UserAccount();
 		MD5Digest md = new MD5Digest();
 		String use = (String)request.getParameter("txtUser");

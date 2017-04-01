@@ -99,7 +99,7 @@ public class Business {
 		 return bus;
 	}
 	public static void updateBusiness(int bus, String buss) throws SQLException, Exception{
-		 String sql = "update business set id_business=?, business_name=? where id_business=?";
+		 String sql = "update business set id_business=?, business_name=N? where id_business=?";
 		 ConnectDB conn = new ConnectDB();
 		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
 		 ps.setInt(1, bus);

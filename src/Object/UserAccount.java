@@ -14,17 +14,13 @@ public class UserAccount {
 	private String password;
 	private String fullname;
 	private String email;
-	private String classes;
+	
 	private String phone;
 	private boolean level;
 	
 	
-	public String getClasses() {
-		return classes;
-	}
-	public void setClasses(String classes) {
-		this.classes = classes;
-	}
+	
+	
 	public boolean isLevel() {
 		return level;
 	}
@@ -289,7 +285,7 @@ public class UserAccount {
 	}
 	
 	public static void updateAccount(UserAccount user) throws SQLException, Exception{
-		 String sql = "update user set  username=?, password=?,fullname=?,email=?,phone=?,level=? where id_account=?";
+		 String sql = "update user set  username=?, password=N?,fullname=?,email=?,phone=?,level=? where id_account=?";
 		 ConnectDB conn = new ConnectDB();
 		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
 		 ps.setString(1, user.getUsername());
@@ -305,7 +301,7 @@ public class UserAccount {
 	}
 	
 	public static void updateAccountNoPSW(UserAccount user) throws SQLException, Exception{
-		 String sql = "update user set  fullname=?,email=?,phone=?,level=? where id_account=?";
+		 String sql = "update user set  fullname=N?,email=?,phone=?,level=? where id_account=?";
 		 ConnectDB conn = new ConnectDB();
 		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
 		 	//ps.setString(1, user.getUsername());
