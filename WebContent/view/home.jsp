@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Admin</title>
+    <title>Trang chủ</title>
 
 		
 
@@ -170,7 +170,7 @@
                         	</c:forEach>
                         </tbody>
                     </table>
-                    <div class="form=group" align="center">  <button type="submit" class="btn btn-default">Mượn</button></div>
+                
                    
                     </form>
                     </div>

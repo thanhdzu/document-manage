@@ -81,7 +81,7 @@ public class DoOrderDocument extends HttpServlet {
 		//RequestDispatcher dispatcher = request.getServletContext()
 		//.getRequestDispatcher("/view/orderDocument.jsp");
 		//dispatcher.forward(request, response);
-        response.sendRedirect(request.getContextPath()+"/homeLogin");
+        response.sendRedirect(request.getContextPath()+"/docUser?idacc="+idacc);
 		doGet(request, response);
 	}
 

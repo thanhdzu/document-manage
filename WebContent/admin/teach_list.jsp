@@ -44,8 +44,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Teacher
-                            <small>List</small>
+                        <h1 class="page-header">Danh sách
+                            <small>giáo viên</small>
                         </h1>
                     </div>
                     <form action="addTeacher" method="post">

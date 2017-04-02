@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Admin</title>
+    <title>Trang chủ</title>
 
 		
 
@@ -70,7 +70,7 @@
         						
     						
                         	<tr class="odd gradeX" align="center">
-                        		<td><input type="checkbox" value="${doc.id_document}" ${doc.status==2?'disabled' : '' }  name="ckOrder"></td>
+                        		<td><input type="checkbox" class="ckbox" value="${doc.id_document}" ${doc.status==2?'disabled' : '' }  name="ckOrder"></td>
                               	
                                 <td>${doc.document_name}</td>
                                 <td>
@@ -135,7 +135,7 @@
                         	</c:forEach>
                         </tbody>
                     </table>
-                    <div class="form=group" align="center">  <button type="submit" class="btn btn-default">Mượn</button></div>
+                    <div class="form=group" align="center">  <button type="submit" id="btnM" disabled=""  class="btn btn-default">Mượn</button></div>
                    
                     </form>
                     </div>
@@ -192,6 +192,20 @@
                 });
             });
         </script>
+
+      
+      <script>
+      $(function() {
+    	   $(':checkbox').on( 'change', function() {
+    	      if( $(':checkbox:checked').length >=1 ) {
+    	         $('button#btnM').prop( 'disabled', false );
+    	      } else {
+    	         $('button#btnM').prop( 'disabled', true );
+    	      }
+    	   });
+    	});
+      </script>  
+    
 <jsp:include page="_footer.jsp"></jsp:include>
 </body>
 
