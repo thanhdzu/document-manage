@@ -38,14 +38,17 @@ public class AddBusiness extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String bus = (String)request.getParameter("txtBusName");
+		String err = null;
 		Business busi = new Business();
 		try {
 			busi.insertBusiness(bus);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			err="Thêm lỗi!";
 		}
-		
+		err = "Thêm thành công!";
+		request.setAttribute("err", err);
 		 response.sendRedirect(request.getContextPath() + "/businessList");
 		doGet(request, response);
 	}

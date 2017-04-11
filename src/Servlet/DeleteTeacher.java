@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.ConnectDB;
 import Object.Teacher;
 
 /**
@@ -25,7 +27,14 @@ public class DeleteTeacher extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    public static void deleteDocumentByID(int id) throws SQLException, Exception{
+		 String sql = "delete from documents where id_teacher=?";
+		 ConnectDB conn = new ConnectDB();
+		 PreparedStatement ps = conn.openConnect().prepareStatement(sql);
+		 ps.setInt(1, id);
+		 ps.executeUpdate();
+		 
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -34,6 +43,7 @@ public class DeleteTeacher extends HttpServlet {
 		Teacher cate = new Teacher();
 		int idcat = Integer.parseInt(idcate);
 			try {
+				deleteDocumentByID(idcat);
 				cate.deleteTeacherByID(idcat);
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block

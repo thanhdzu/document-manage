@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/view/_notice.jsp=UTF-8
 encoding//src/Object/Notice.java=UTF-8
+encoding//src/Servlet/AddBusiness.java=UTF-8
 encoding//src/Servlet/DoAddDocument.java=UTF-8
 encoding//src/Servlet/DoCreateAccount.java=UTF-8
 encoding//src/Servlet/DoEditAccount.java=UTF-8

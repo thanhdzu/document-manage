@@ -62,7 +62,8 @@ public class DoAddDocument extends HttpServlet {
 		}
 		
 		PrintWriter out = response.getWriter();
-		response.setHeader("Refresh", "3; url=addDocument");
+		response.setCharacterEncoding("utf-8");
+		response.setHeader("Refresh", "2; url=addDocument");
 	
 		request.setAttribute("stat", status);
 		
